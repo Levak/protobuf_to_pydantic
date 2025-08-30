@@ -432,7 +432,8 @@ class M2P(object):
         else:
             enum_class_dict = {v.name: v.number for v in protobuf_field.enum_type.values}
             _class_name = protobuf_field.enum_type.name
-            _class_doc = ""
+            _class_doc = f"Enumeration {protobuf_field.enum_type.name}:\n"\
+                         + ("\n".join([ f"- {v.name} = {v.number}" for v in protobuf_field.enum_type.values]))
             if field_dataclass.descriptor.file.name != protobuf_field.enum_type.file.name:
                 _class_name = replace_file_name_to_class_name(protobuf_field.enum_type.file.name) + _class_name
                 _class_doc = (
